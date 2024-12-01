@@ -26,10 +26,10 @@ export default function Dashboard({ players }: DashboardProps) {
 
   const filterPlayers = (rgbFilter: string, playerFilter: string) => {
     if (playerFilter !== ""){
-      const filtered = players.filter(player => player.name.toLowerCase().includes(playerFilter.toLowerCase()));
+      const filtered = players.filter(player => player.name.toLowerCase().startsWith(playerFilter.toLowerCase()));
       setSortedPlayers([...filtered].sort((a, b) => b.points - a.points));
     } else if (rgbFilter !== ""){
-    const filtered = players.filter(player => player.rgb.toLowerCase().includes(rgbFilter.toLowerCase()));
+    const filtered = players.filter(player => player.rgb.toLowerCase().startsWith(rgbFilter.toLowerCase()));
     setSortedPlayers([...filtered].sort((a, b) => b.points - a.points));
     } else {
       setSortedPlayers([...players].sort((a, b) => b.points - a.points));

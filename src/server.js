@@ -42,6 +42,17 @@ app.post('/api/players', async (req, res) => {
   }
 });
 
+// API endpoint to get all player data
+app.get('/api/players', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM players ORDER BY points DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching player data:', error);
+    res.status(500).send('Error fetching player data');
+  }
+});
+
 app.get('/api/players/names', async (req, res) => {
   const { name } = req.query; // Get the 'name' query parameter
   try {
@@ -55,18 +66,6 @@ app.get('/api/players/names', async (req, res) => {
       res.status(500).send('Error fetching player names');
   }
 });
-
-// API endpoint to get all player data
-app.get('/api/players', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM players ORDER BY points DESC');
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Error fetching player data:', error);
-    res.status(500).send('Error fetching player data');
-  }
-});
-
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
